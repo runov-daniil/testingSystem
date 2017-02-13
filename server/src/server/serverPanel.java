@@ -218,8 +218,16 @@ public class serverPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBTNActionPerformed
-        runServer.main(true);
-        startBTN.setEnabled(false);
+        switch(startBTN.getText()){
+            case "Старт сервер":
+                runServer.main(true);
+                startBTN.setEnabled(false);
+                break;
+            case "Стоп сервер":
+                runServer.statusServer = false;
+                break;
+        }
+        
     }//GEN-LAST:event_startBTNActionPerformed
 
     public static void main(boolean visible) {

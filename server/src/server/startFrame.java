@@ -60,6 +60,7 @@ public class startFrame extends javax.swing.JFrame {
 
     private void startPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startPanelButtonActionPerformed
         serverPanel.main(true);
+        this.dispose();
     }//GEN-LAST:event_startPanelButtonActionPerformed
 
     public static void main(String args[]) {
