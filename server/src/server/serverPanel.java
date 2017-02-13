@@ -26,6 +26,7 @@ public class serverPanel extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         startBTN = new javax.swing.JButton();
+        usersBTN = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Панель сервера");
@@ -153,6 +154,14 @@ public class serverPanel extends javax.swing.JFrame {
 
         startBTN.setFont(new java.awt.Font("Times New Roman", 2, 24)); // NOI18N
         startBTN.setText("Старт сервер");
+        startBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startBTNActionPerformed(evt);
+            }
+        });
+
+        usersBTN.setFont(new java.awt.Font("Times New Roman", 2, 24)); // NOI18N
+        usersBTN.setText("Пользователи системы");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -160,7 +169,9 @@ public class serverPanel extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(startBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(usersBTN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -168,6 +179,8 @@ public class serverPanel extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(startBTN)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usersBTN)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,6 +217,11 @@ public class serverPanel extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void startBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBTNActionPerformed
+        runServer.main(true);
+        startBTN.setEnabled(false);
+    }//GEN-LAST:event_startBTNActionPerformed
+
     public static void main(boolean visible) {
         serverPanel.setResizable(false);
         serverPanel.setVisible(visible);
@@ -225,6 +243,7 @@ public class serverPanel extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton saveLogBTN;
-    private javax.swing.JButton startBTN;
+    public static javax.swing.JButton startBTN;
+    private javax.swing.JButton usersBTN;
     // End of variables declaration//GEN-END:variables
 }
