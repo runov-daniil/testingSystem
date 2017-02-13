@@ -1,7 +1,7 @@
 package server;
 
 public class serverPanel extends javax.swing.JFrame {
-
+    private static serverPanel serverPanel = new serverPanel();
     public serverPanel() {
         initComponents();
     }
@@ -11,6 +11,7 @@ public class serverPanel extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Панель сервера");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -24,10 +25,12 @@ public class serverPanel extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-
+    public static void main(boolean visible) {
+        serverPanel.setResizable(false);
+        serverPanel.setVisible(visible);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -24,6 +24,11 @@ public class startFrame extends javax.swing.JFrame {
 
         startPanelButton.setFont(new java.awt.Font("Times New Roman", 2, 24)); // NOI18N
         startPanelButton.setText("Запустить панель управления");
+        startPanelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startPanelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,6 +57,10 @@ public class startFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void startPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startPanelButtonActionPerformed
+        serverPanel.main(true);
+    }//GEN-LAST:event_startPanelButtonActionPerformed
 
     public static void main(String args[]) {
         startFrame.setResizable(false);
