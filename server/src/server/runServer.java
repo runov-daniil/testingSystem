@@ -15,6 +15,7 @@ public class runServer extends javax.swing.JFrame {
     private static boolean firstStart = true;
     public static boolean statusServer = true;
     private static Thread listenThread;
+    private static DefaultTableModel dtm = (DefaultTableModel)serverPanel.getRequests.getModel();
     private static runServer runServer = new runServer();
     public runServer() {
         initComponents();
@@ -65,6 +66,13 @@ public class runServer extends javax.swing.JFrame {
             serverPanel.startBTN.setText("Стоп сервер");
             serverPanel.startBTN.setEnabled(true);
             firstStart = false;
+            
+            Vector headerRequest = new Vector();
+            headerRequest.add("Запрос");
+            headerRequest.add("Данные");
+            headerRequest.add("Адрес");
+            Vector data = new Vector();
+            dtm.setDataVector(data, headerRequest);
             this.hide();
         }
         if(statusServer == true){
@@ -90,13 +98,7 @@ public class runServer extends javax.swing.JFrame {
                     listen.close();
                     serverSocket.close();
                     
-                    Vector header = new Vector();
-                    header.add("Команда");
-                    header.add("Данные");
-                    header.add("Адресс");
-                    Vector get = (Vector)getMessage;
-                    DefaultTableModel dtm = (DefaultTableModel)serverPanel.getRequests.getModel();
-                    dtm.setDataVector(get, header);
+                    dtm.addRow((Vector) getMessage);
                     
                     listenThread.interrupt();
                     
@@ -118,7 +120,6 @@ public class runServer extends javax.swing.JFrame {
         runServer.setSize(200, 79);
         runServer.setVisible(visible);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton startBTN;
     // End of variables declaration//GEN-END:variables
