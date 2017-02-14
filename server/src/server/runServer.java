@@ -1,8 +1,11 @@
 package server;
 
 import com.sun.corba.se.pept.transport.ListenerThread;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -100,6 +103,8 @@ public class runServer extends javax.swing.JFrame {
                     
                     dtm.addRow((Vector) getMessage);
                     
+                    send();
+                    
                     listenThread.interrupt();
                     
                     if(statusServer == true){
@@ -109,6 +114,33 @@ public class runServer extends javax.swing.JFrame {
             }
         });
         listenThread.start();
+    }
+    
+    private static void send() throws UnknownHostException, IOException{
+        int countRow = serverPanel.getRequests.getRowCount();
+        String messageToSend = "";
+        String command = serverPanel.getRequests.getValueAt(countRow - 1, 0).toString();
+        switch(command){
+            case "authorization":
+                messageToSend = "teacher"; 
+                break;
+        }
+        
+        String IP = serverPanel.getRequests.getValueAt(countRow - 1, 2).toString();
+        IP = IP.substring(1, IP.length());
+        int port = 5555;
+        
+        InetAddress ipAdress = InetAddress.getByName(IP);
+        Socket send = new Socket(ipAdress, port);
+        
+        OutputStream out = send.getOutputStream();
+        DataOutputStream outData = new DataOutputStream(out);
+        outData.writeUTF(messageToSend);
+        out.flush();
+        
+        outData.close();
+        out.close();
+        send.close();
     }
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

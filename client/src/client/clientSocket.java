@@ -1,8 +1,11 @@
 package client;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Vector;
@@ -28,17 +31,41 @@ public class clientSocket {
         
         out.close();
         send.close();
+        
+        String message = "";
         switch (command) {
             case "authorization":
-                getMessage();
+                message = getMessage();
+                switch(message){
+                    case "teacher":
+                        teacherForm.main(true);
+                        break;
+                    case "student":
+                        studentForm.main(true);
+                        break;
+                    case "admin":
+                        adminForm.main(true);
+                        break;
+                }
                 break;
         }
     }
     
-    private static String getMessage(){
-        String newMessage = "";
+    private static String getMessage() throws IOException{
+        ServerSocket client = new ServerSocket(5555);
+        Socket get = client.accept();
         
-        return newMessage;
+        InputStream getIn = get.getInputStream();
+        DataInputStream in = new DataInputStream(getIn);
+        String getLine = null;    
+        
+        getLine = in.readUTF();
+        
+        in.close();
+        getIn.close();
+        get.close();
+        client.close();
+        return getLine;
     }
     
     private static Vector getObject(){
