@@ -6,8 +6,10 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class runServer extends javax.swing.JFrame {
     private static boolean firstStart = true;
@@ -88,7 +90,19 @@ public class runServer extends javax.swing.JFrame {
                     listen.close();
                     serverSocket.close();
                     
+                    Vector header = new Vector();
+                    header.add("Команда");
+                    header.add("Данные");
+                    header.add("Адресс");
+                    Vector get = (Vector)getMessage;
+                    DefaultTableModel dtm = (DefaultTableModel)serverPanel.getRequests.getModel();
+                    dtm.setDataVector(get, header);
+                    
                     listenThread.interrupt();
+                    
+                    if(statusServer == true){
+                       startBTN.doClick();
+                    }
                 } catch (IOException ex) {} catch (ClassNotFoundException ex) {}
             }
         });
@@ -106,6 +120,6 @@ public class runServer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton startBTN;
+    public static javax.swing.JButton startBTN;
     // End of variables declaration//GEN-END:variables
 }
