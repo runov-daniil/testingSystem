@@ -110,7 +110,7 @@ public class runServer extends javax.swing.JFrame {
                     
                     dtm.addRow((Vector) getMessage);
                     
-                    send();
+                    unCrypt();
                     
                     listenThread.interrupt();
                     
@@ -125,7 +125,7 @@ public class runServer extends javax.swing.JFrame {
         listenThread.start();
     }
     
-    private static void send() throws UnknownHostException, IOException, ClassNotFoundException, SQLException{
+    private static void unCrypt() throws UnknownHostException, IOException, ClassNotFoundException, SQLException{
         int countRow = serverPanel.getRequests.getRowCount();
         String messageToSend = "";
         String command = serverPanel.getRequests.getValueAt(countRow - 1, 0).toString();
@@ -164,10 +164,29 @@ public class runServer extends javax.swing.JFrame {
                     newOnline.add(IP);
                     dtmOnline.addRow(newOnline);
                 }
+                send(messageToSend);
+                break;
+            //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Выход">
+            case "logout":
+                int nextOnline = 0;
+                while(true){
+                    String dataLogin = serverPanel.getRequests.getValueAt(countRow-1, 1).toString();
+                    String loginOnline = serverPanel.onlineTable.getValueAt(nextOnline, 0).toString();
+                    if(loginOnline.equals(dataLogin)){
+                        serverPanel.onlineTable.removeRowSelectionInterval(nextOnline, nextOnline);
+                        break;
+                    }else{
+                        nextOnline++;
+                    }
+                }
                 break;
             //</editor-fold>
         }
-        
+    }
+    
+    private static void send(String messageToSend) throws UnknownHostException, IOException{
+        int countRow = serverPanel.getRequests.getRowCount();
         String IP = serverPanel.getRequests.getValueAt(countRow - 1, 2).toString();
         IP = IP.substring(1, IP.length());
         int port = 5555;

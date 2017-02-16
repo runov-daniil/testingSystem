@@ -34,6 +34,7 @@ public class clientSocket {
         
         String message = "";
         switch (command) {
+            //<editor-fold defaultstate="collapsed" desc="Авторизация">
             case "authorization":
                 message = getMessage();
                 switch(message){
@@ -48,6 +49,12 @@ public class clientSocket {
                         break;
                 }
                 break;
+            //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Выход">
+            case "logout":
+                
+                break;
+            //</editor-fold>
         }
     }
     
