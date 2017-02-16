@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ public class runServer extends javax.swing.JFrame {
     public static boolean statusServer = true;
     private static Thread listenThread;
     private static DefaultTableModel dtm = (DefaultTableModel)serverPanel.getRequests.getModel();
+    private static DefaultTableModel dtmOnline = (DefaultTableModel)serverPanel.onlineTable.getModel();
     private static runServer runServer = new runServer();
     public runServer() {
         initComponents();
@@ -76,6 +78,11 @@ public class runServer extends javax.swing.JFrame {
             headerRequest.add("Адрес");
             Vector data = new Vector();
             dtm.setDataVector(data, headerRequest);
+            Vector headerOnline = new Vector();
+            headerOnline.add("Логин");
+            headerOnline.add("Адрес");
+            Vector outData = new Vector();
+            dtmOnline.setDataVector(outData, headerOnline);
             this.hide();
         }
         if(statusServer == true){
@@ -110,20 +117,55 @@ public class runServer extends javax.swing.JFrame {
                     if(statusServer == true){
                        startBTN.doClick();
                     }
-                } catch (IOException ex) {} catch (ClassNotFoundException ex) {}
+                } catch (IOException ex) {} catch (ClassNotFoundException ex) {} catch (SQLException ex) {
+                    Logger.getLogger(runServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         listenThread.start();
     }
     
-    private static void send() throws UnknownHostException, IOException{
+    private static void send() throws UnknownHostException, IOException, ClassNotFoundException, SQLException{
         int countRow = serverPanel.getRequests.getRowCount();
         String messageToSend = "";
         String command = serverPanel.getRequests.getValueAt(countRow - 1, 0).toString();
         switch(command){
+            //<editor-fold defaultstate="collapsed" desc="Авторизация">
             case "authorization":
-                messageToSend = "teacher"; 
+                String data = serverPanel.getRequests.getValueAt(countRow-1, 1).toString();
+                String login = "";
+                String password = "";
+                int i = 0;
+                boolean detect = false;
+                while(true){
+                    char ch = data.charAt(i);
+                    if(detect == false){
+                        if(ch != '|'){
+                            login = login + ch;
+                            i++;
+                        }else{
+                            detect = true;
+                            i++;
+                        }
+                    }else{
+                        password = password + ch;
+                        i++;
+                    }
+                    if(i == data.length()){
+                        break;
+                    }
+                }
+                messageToSend = dataBase.authorization(login, password);
+                if(!(messageToSend.equals("error"))){
+                    Vector newOnline = new Vector();
+                    newOnline.add(login);
+                    String IP = serverPanel.getRequests.getValueAt(countRow-1, 2).toString();
+                    IP = IP.substring(1);
+                    newOnline.add(IP);
+                    dtmOnline.addRow(newOnline);
+                }
                 break;
+            //</editor-fold>
         }
         
         String IP = serverPanel.getRequests.getValueAt(countRow - 1, 2).toString();

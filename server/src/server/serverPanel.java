@@ -16,7 +16,7 @@ public class serverPanel extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        onlineTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -70,8 +70,8 @@ public class serverPanel extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        onlineTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        onlineTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -79,7 +79,7 @@ public class serverPanel extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(onlineTable);
 
         jLabel2.setText("Пользователи онлайн:");
 
@@ -248,8 +248,8 @@ public class serverPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
+    public static javax.swing.JTable onlineTable;
     private javax.swing.JButton saveLogBTN;
     public static javax.swing.JButton startBTN;
     private javax.swing.JButton usersBTN;

@@ -1,5 +1,9 @@
 package server;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class startFrame extends javax.swing.JFrame {
     private  static startFrame startFrame = new startFrame();
     public startFrame() {
@@ -59,7 +63,7 @@ public class startFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startPanelButtonActionPerformed
-        serverPanel.main(true);
+        serverPanel.main(true);       
         this.dispose();
     }//GEN-LAST:event_startPanelButtonActionPerformed
 
