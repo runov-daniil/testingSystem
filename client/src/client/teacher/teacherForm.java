@@ -1,8 +1,8 @@
-package client;
+package client.teacher;
 
-public class studentForm extends javax.swing.JFrame {
-    private static studentForm studentForm = new studentForm();
-    public studentForm() {
+public class teacherForm extends javax.swing.JFrame {
+    private static teacherForm teacherForm = new teacherForm();
+    public teacherForm() {
         initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -13,23 +13,23 @@ public class studentForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Студент");
+        jLabel1.setText("Учитель");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(187, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(133, 133, 133)
                 .addComponent(jLabel1)
-                .addGap(169, 169, 169))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
+                .addGap(83, 83, 83)
                 .addComponent(jLabel1)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         pack();
@@ -37,8 +37,8 @@ public class studentForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(boolean visible) {
-        studentForm.setResizable(false);
-        studentForm.setVisible(visible);
+        teacherForm.setResizable(false);
+        teacherForm.setVisible(visible);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

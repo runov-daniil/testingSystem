@@ -1,5 +1,6 @@
-package client;
+package client.admin;
 
+import client.clientSocket;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,17 +29,17 @@ public class adminForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(353, Short.MAX_VALUE)
                 .addComponent(loginLabel)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addGap(73, 73, 73))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addComponent(loginLabel)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addGap(224, 224, 224))
         );
 
         pack();

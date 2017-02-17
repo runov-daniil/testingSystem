@@ -1,5 +1,8 @@
 package client;
 
+import client.student.studentForm;
+import client.teacher.teacherForm;
+import client.admin.adminForm;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
