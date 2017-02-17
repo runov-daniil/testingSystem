@@ -1,5 +1,9 @@
 package client;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class adminForm extends javax.swing.JFrame {
     private static adminForm adminForm = new adminForm();
     public adminForm() {
@@ -24,17 +28,17 @@ public class adminForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(283, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(127, 127, 127)
                 .addComponent(loginLabel)
-                .addGap(86, 86, 86))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(218, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
                 .addComponent(loginLabel)
-                .addGap(68, 68, 68))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         pack();
@@ -42,7 +46,7 @@ public class adminForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        clientSocket.sendRequest("logout", data);
+        try {clientSocket.sendRequest("logout", loginLabel.getText());} catch (IOException ex) {}
     }//GEN-LAST:event_formWindowClosing
 
     public static void main(boolean visible) {

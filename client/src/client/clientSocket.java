@@ -37,6 +37,17 @@ public class clientSocket {
             //<editor-fold defaultstate="collapsed" desc="Авторизация">
             case "authorization":
                 message = getMessage();
+                String login = "";
+                int i = 0;
+                while(true){
+                    char ch = data.charAt(i);
+                    if(ch != '|'){
+                        login = login + ch;
+                        i++;
+                    }else{
+                        break;
+                    }
+                }
                 switch(message){
                     case "teacher":
                         teacherForm.main(true);
@@ -45,6 +56,7 @@ public class clientSocket {
                         studentForm.main(true);
                         break;
                     case "admin":
+                        adminForm.loginLabel.setText(login);
                         adminForm.main(true);
                         break;
                 }
