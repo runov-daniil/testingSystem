@@ -174,7 +174,7 @@ public class runServer extends javax.swing.JFrame {
                     String dataLogin = serverPanel.getRequests.getValueAt(countRow-1, 1).toString();
                     String loginOnline = serverPanel.onlineTable.getValueAt(nextOnline, 0).toString();
                     if(loginOnline.equals(dataLogin)){
-                        serverPanel.onlineTable.removeRowSelectionInterval(nextOnline, nextOnline);
+                        dtmOnline.removeRow(nextOnline);
                         break;
                     }else{
                         nextOnline++;
