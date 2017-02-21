@@ -29,4 +29,7 @@ public class dataBase {
         closeConnection();
         return level;
     }
+    //Добавление нового пользователя
+    
+    //Формирование списка пользователей
 }
