@@ -1,5 +1,10 @@
 package client.admin;
 
+import client.publicClasses.waitServer;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class addNewUser extends javax.swing.JDialog {
     private static addNewUser addNewUser = new addNewUser();
     public addNewUser() {
@@ -106,7 +111,9 @@ public class addNewUser extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBTNActionPerformed
-        // TODO add your handling code here:
+        String Request = "newUser$"+loginText.getText()+"|"+passwordText.getText()+"|"+fioText.getText()+"$"+adminForm.MyIP;
+        Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+adminForm.MyIP+"@";
+        try {waitServer.main(Request, 2);} catch (IOException ex) {}
     }//GEN-LAST:event_saveBTNActionPerformed
 
     public static void main() {

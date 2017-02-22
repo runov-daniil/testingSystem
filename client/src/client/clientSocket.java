@@ -28,6 +28,7 @@ public class clientSocket {
         toSend.add(command);
         toSend.add(data);
         toSend.add(send.getInetAddress().toString());
+        String MyIP = send.getInetAddress().toString();
         
         out.writeObject(toSend);
         out.flush();
@@ -60,6 +61,7 @@ public class clientSocket {
                         break;
                     case "admin":
                         adminForm.loginLabel.setText(login);
+                        adminForm.MyIP = MyIP.substring(1, MyIP.length());
                         adminForm.main(true);
                         break;
                 }
@@ -73,7 +75,7 @@ public class clientSocket {
         }
     }
     
-    private static String getMessage() throws IOException{
+    public static String getMessage() throws IOException{
         ServerSocket client = new ServerSocket(5555);
         Socket get = client.accept();
         
@@ -94,6 +96,21 @@ public class clientSocket {
         Vector newObject = new Vector();
         
         return newObject;
+    }
+    
+    public static void sendVector(Vector toSend) throws UnknownHostException, IOException{
+        String IP = "127.0.0.1";
+        int port = 4444;
+        
+        InetAddress ipAdress = InetAddress.getByName(IP);
+        Socket send = new Socket(ipAdress, port);
+        ObjectOutputStream out = new ObjectOutputStream(send.getOutputStream());
+        
+        out.writeObject(toSend);
+        out.flush();
+        
+        out.close();
+        send.close();
     }
     
     private static void listenServer(){

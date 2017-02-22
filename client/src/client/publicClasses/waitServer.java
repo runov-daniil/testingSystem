@@ -1,5 +1,8 @@
 package client.publicClasses;
 
+import java.io.IOException;
+import java.util.Vector;
+
 public class waitServer extends javax.swing.JDialog {
     private static waitServer waitServer = new waitServer();
     public waitServer() {
@@ -35,16 +38,34 @@ public class waitServer extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String requestes, int count){
+    public static void main(String request, int count) throws IOException{
         waitServer.setSize(435, 100);
-        waitServer.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        waitServer.setResizable(false);
         waitServer.setVisible(true);
+        Vector toSend = new Vector();
         progressWait.setMinimum(0);
         progressWait.setMaximum(count);
         int step = 0;
-        while(step != count){
-            step++;
+        int length = request.length();
+        String column = "";
+        int i = 0;
+        while(i < length){
+            char ch = request.charAt(i);
+            if(ch != '@'){
+                if(ch != '$'){
+                    column = column + ch;
+                    i++;
+                }else{
+                    toSend.add(column);
+                    column = "";
+                    i++;
+                }
+            }else{
+                System.out.println(toSend);
+                toSend.removeAllElements();
+                step++;
+                progressWait.setValue(step);
+                i++;
+            }
         }
     }
 

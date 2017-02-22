@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class adminForm extends javax.swing.JFrame {
     private static adminForm adminForm = new adminForm();
+    public static String MyIP = "";
     public adminForm() {
         initComponents();
     }
@@ -313,6 +314,7 @@ public class adminForm extends javax.swing.JFrame {
     public static void main(boolean visible) {
         adminForm.setResizable(false);
         adminForm.setVisible(visible);
+        System.out.println(MyIP);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
