@@ -4,6 +4,7 @@ import client.publicClasses.waitServer;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class addNewUser extends javax.swing.JDialog {
     private static addNewUser addNewUser = new addNewUser();
@@ -23,6 +24,8 @@ public class addNewUser extends javax.swing.JDialog {
         fioText = new javax.swing.JTextField();
         saveBTN = new javax.swing.JButton();
         cancelBTN = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -43,18 +46,28 @@ public class addNewUser extends javax.swing.JDialog {
 
         cancelBTN.setText("Отмена");
 
+        jRadioButton1.setText("Учитель");
+        jRadioButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton1MouseClicked(evt);
+            }
+        });
+
+        jRadioButton2.setText("Ученик");
+        jRadioButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(saveBTN)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
@@ -64,7 +77,19 @@ public class addNewUser extends javax.swing.JDialog {
                             .addComponent(loginText, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(passwordText, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                                .addComponent(fioText)))))
+                                .addComponent(fioText))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(saveBTN)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cancelBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jRadioButton1)
+                                    .addComponent(jRadioButton2))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -82,7 +107,11 @@ public class addNewUser extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(fioText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButton2)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveBTN)
                     .addComponent(cancelBTN))
@@ -111,10 +140,31 @@ public class addNewUser extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBTNActionPerformed
-        String Request = "newUser$"+loginText.getText()+"|"+passwordText.getText()+"|"+fioText.getText()+"$"+adminForm.MyIP;
-        Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+adminForm.MyIP+"@";
-        try {waitServer.main(Request, 2);} catch (IOException ex) {}
+        if((jRadioButton1.isSelected()==true) && (jRadioButton2.isSelected()==true)){
+            JOptionPane.showMessageDialog(rootPane, "У пользователя может быть выбран только один уровень доступа!");  
+        }else{
+            String Request = "newUser$"+loginText.getText()+"|"+passwordText.getText()+"|"+fioText.getText();
+            if(jRadioButton1.isSelected() == true){
+                Request = Request + "|teacher";
+                Request = Request +"$"+adminForm.MyIP;
+                Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+adminForm.MyIP+"@";
+                try {waitServer.main(Request, 2);} catch (IOException ex) {}
+            }else if(jRadioButton2.isSelected() == true){
+                Request = Request + "|student";
+                Request = Request +"$"+adminForm.MyIP;
+                Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+adminForm.MyIP+"@";
+                try {waitServer.main(Request, 2);} catch (IOException ex) {}
+            }
+        }               
     }//GEN-LAST:event_saveBTNActionPerformed
+
+    private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
+        jRadioButton2.setSelected(false);
+    }//GEN-LAST:event_jRadioButton1MouseClicked
+
+    private void jRadioButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton2MouseClicked
+        jRadioButton1.setSelected(false);
+    }//GEN-LAST:event_jRadioButton2MouseClicked
 
     public static void main() {
         addNewUser.setVisible(true);
@@ -127,6 +177,8 @@ public class addNewUser extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField loginText;
     private javax.swing.JPasswordField passwordText;
     private javax.swing.JButton saveBTN;
