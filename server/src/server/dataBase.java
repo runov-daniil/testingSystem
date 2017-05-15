@@ -30,6 +30,8 @@ public class dataBase {
         return level;
     }
     //Добавление нового пользователя
-    
+    public static void addUser() throws ClassNotFoundException, SQLException {
+        
+    }
     //Формирование списка пользователей
 }
