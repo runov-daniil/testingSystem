@@ -143,13 +143,11 @@ public class addNewUser extends javax.swing.JDialog {
                     String Request = "newUser$"+loginText.getText()+"|"+passwordText.getText()+"|"+fioText.getText();
                     if(jRadioButton1.isSelected() == true){
                         Request = Request + "|teacher";
-                        Request = Request +"$"+adminForm.MyIP;
-                        Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+adminForm.MyIP+"@";
+                        Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+"@";
                         try {waitServer.main(Request, 2);} catch (IOException ex) {}
                     }else if(jRadioButton2.isSelected() == true){
                         Request = Request + "|student";
-                        Request = Request +"$"+adminForm.MyIP;
-                        Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+adminForm.MyIP+"@";
+                        Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+"@";
                         try {waitServer.main(Request, 2);} catch (IOException ex) {}
                     }
                 }
