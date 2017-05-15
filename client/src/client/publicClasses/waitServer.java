@@ -1,5 +1,6 @@
 package client.publicClasses;
 
+import client.clientSocket;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -60,7 +61,7 @@ public class waitServer extends javax.swing.JDialog {
                     i++;
                 }
             }else{
-                System.out.println(toSend);
+                clientSocket.sendVector(toSend);
                 toSend.removeAllElements();
                 step++;
                 progressWait.setValue(step);
