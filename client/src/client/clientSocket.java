@@ -72,6 +72,11 @@ public class clientSocket {
                 
                 break;
             //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Добавление пользователя">
+            case "addUser":
+                
+                break;
+            //</editor-fold>
         }
     }
     
