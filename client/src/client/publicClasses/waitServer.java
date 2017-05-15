@@ -3,6 +3,7 @@ package client.publicClasses;
 import client.clientSocket;
 import java.io.IOException;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 public class waitServer extends javax.swing.JDialog {
     private static waitServer waitServer = new waitServer();
@@ -42,30 +43,56 @@ public class waitServer extends javax.swing.JDialog {
     public static void main(String request, int count) throws IOException{
         waitServer.setSize(435, 100);
         waitServer.setVisible(true);
-        Vector toSend = new Vector();
         progressWait.setMinimum(0);
         progressWait.setMaximum(count);
         int step = 0;
         int length = request.length();
-        String column = "";
+        String command = "";
+        String data = "";
+        boolean flag = true;
         int i = 0;
         while(i < length){
             char ch = request.charAt(i);
             if(ch != '@'){
-                if(ch != '$'){
-                    column = column + ch;
+                if((ch != '$') && (flag == true)){
+                    command = command + ch;
                     i++;
                 }else{
-                    toSend.add(column);
-                    column = "";
-                    i++;
+                    if(flag == true){
+                        flag = false;
+                        i++;
+                    }else{
+                        data = data + ch;
+                        i++;
+                    }
                 }
             }else{
-                clientSocket.sendVector(toSend);
-                toSend.removeAllElements();
-                step++;
-                progressWait.setValue(step);
-                i++;
+                System.err.println(command);
+                System.err.println(data);
+                clientSocket.sendRequest(command, data);
+                switch (command){
+                    case "addUser":                        
+                        command = "";
+                        data = "";
+                        flag = true;
+                        String message = clientSocket.getMessage();
+                        step++;
+                        progressWait.setValue(step);
+                        JOptionPane.showMessageDialog(waitServer, message);
+                        i++;
+                      break;
+                    case "getUsers":
+                        command = "";
+                        data = "";
+                        flag = true;
+                        step++;
+                        progressWait.setValue(step);
+                        i++;
+                      break;                    
+                }
+                
+                
+                
             }
         }
     }
