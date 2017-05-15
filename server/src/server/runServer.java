@@ -183,8 +183,8 @@ public class runServer extends javax.swing.JFrame {
                 break;
             //</editor-fold>
             //<editor-fold defaultstate="collapsed" desc="Добавление нового пользователя">
-            case "addUser":
-                
+            case "newUser":
+                send("Данные успешно приняты!");
             break;                
             //</editor-fold>
         }
