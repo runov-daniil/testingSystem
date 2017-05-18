@@ -190,7 +190,7 @@ public class runServer extends javax.swing.JFrame {
                 String newPassword = unCryptData();
                 String newFIO = unCryptData();
                 String level = unCryptData();
-                
+                dataBase.addUser(newLogin, newPassword, newFIO, level);
                 send("Данные успешно приняты!");
             break;                
             //</editor-fold>
