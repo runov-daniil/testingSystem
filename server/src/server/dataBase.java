@@ -30,8 +30,10 @@ public class dataBase {
         return level;
     }
     //Добавление нового пользователя
-    public static void addUser() throws ClassNotFoundException, SQLException {
-        
+    public static void addUser(String login, String password, String FIO, String level) throws ClassNotFoundException, SQLException {
+        getConnection();
+        st.execute("INSERT INTO users(login, password, FIO, level) VALUES ('"+login+"', '"+password+"', '"+FIO+"', '"+level+"');");
+        closeConnection();
     }
     //Формирование списка пользователей
 }
