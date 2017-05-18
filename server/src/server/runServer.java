@@ -22,6 +22,7 @@ public class runServer extends javax.swing.JFrame {
     private static DefaultTableModel dtm = (DefaultTableModel)serverPanel.getRequests.getModel();
     private static DefaultTableModel dtmOnline = (DefaultTableModel)serverPanel.onlineTable.getModel();
     private static runServer runServer = new runServer();
+    private static String dataUser = "";
     public runServer() {
         initComponents();
     }
@@ -184,10 +185,32 @@ public class runServer extends javax.swing.JFrame {
             //</editor-fold>
             //<editor-fold defaultstate="collapsed" desc="Добавление нового пользователя">
             case "newUser":
+                dataUser = serverPanel.getRequests.getValueAt(countRow-1, 1).toString() + '|';
+                String newLogin = unCryptData();
+                String newPassword = unCryptData();
+                String newFIO = unCryptData();
+                String level = unCryptData();
+                
                 send("Данные успешно приняты!");
             break;                
             //</editor-fold>
         }
+    }
+    
+    private static String unCryptData() {
+        String getData = "";
+        int countChars = 0;
+        while(true){
+            char ch = dataUser.charAt(countChars);
+            if(ch != '|'){
+                getData = getData + ch;
+                countChars++;
+            }else{
+                dataUser = dataUser.substring(countChars+1);
+                break;
+            }
+        }
+        return getData;
     }
     
     private static void send(String messageToSend) throws UnknownHostException, IOException{
