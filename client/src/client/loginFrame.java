@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 public class loginFrame extends javax.swing.JFrame {
     private static loginFrame loginFrame = new loginFrame();
+    private static boolean flag = true;
     public loginFrame() {
         initComponents();
     }
@@ -102,8 +103,14 @@ public class loginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {clientSocket.sendRequest("authorization", login.getText() + "|" + Password.getText());} catch (IOException ex) {}
-        this.dispose();
+        if(flag == true){
+            this.setVisible(false);
+            clientSocket.listenServer();
+            try {clientSocket.sendRequest("authorization", login.getText() + "|" + Password.getText());} catch (IOException ex) {}
+            flag = false;
+        }else{
+            clientSocket.listenServer();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

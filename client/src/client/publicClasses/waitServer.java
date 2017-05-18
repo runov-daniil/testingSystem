@@ -75,10 +75,10 @@ public class waitServer extends javax.swing.JDialog {
                         command = "";
                         data = "";
                         flag = true;
-                        String message = clientSocket.getMessage();
+                        //String message = clientSocket.getMessage();
                         step++;
                         progressWait.setValue(step);
-                        JOptionPane.showMessageDialog(waitServer, message);
+                        //JOptionPane.showMessageDialog(waitServer, message);
                         i++;
                       break;
                     case "getUsers":

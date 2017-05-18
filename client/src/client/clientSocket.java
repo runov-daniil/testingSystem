@@ -12,9 +12,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class clientSocket {
     private static Thread backgroundThread;
+    private static String messageCrypt = "";
     
     public static void sendRequest(String command, String data) throws UnknownHostException, IOException{
         String IP = "127.0.0.1";
@@ -37,10 +40,16 @@ public class clientSocket {
         send.close();
         
         String message = "";
+        int waitServer = 0;
         switch (command) {
             //<editor-fold defaultstate="collapsed" desc="Авторизация">
             case "authorization":
-                message = getMessage();
+                while(messageCrypt.length() == 0){
+                    waitServer++;
+                    System.out.println("Ожидание сервера: " + waitServer);
+                }
+                message = messageCrypt;
+                messageCrypt = "";
                 String login = "";
                 int i = 0;
                 while(true){
@@ -80,7 +89,7 @@ public class clientSocket {
         }
     }
     
-    public static String getMessage() throws IOException{
+    public static void getMessage() throws IOException{
         ServerSocket client = new ServerSocket(5555);
         Socket get = client.accept();
         
@@ -94,7 +103,7 @@ public class clientSocket {
         getIn.close();
         get.close();
         client.close();
-        return getLine;
+        messageCrypt = getLine;
     }
     
     private static Vector getObject(){
@@ -118,11 +127,13 @@ public class clientSocket {
         send.close();
     }
     
-    private static void listenServer(){
+    public static void listenServer(){
         backgroundThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                
+                try {
+                    getMessage();
+                } catch (IOException ex) {}
             }
         });
         backgroundThread.start();
