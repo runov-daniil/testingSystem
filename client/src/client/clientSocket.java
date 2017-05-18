@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class clientSocket {
     private static Thread backgroundThread;
-    private static String messageCrypt = "";
+    public static String messageCrypt = "";
     
     public static void sendRequest(String command, String data) throws UnknownHostException, IOException{
         String IP = "127.0.0.1";

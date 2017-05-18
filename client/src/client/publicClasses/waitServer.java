@@ -1,6 +1,8 @@
 package client.publicClasses;
 
 import client.clientSocket;
+import static client.clientSocket.messageCrypt;
+import client.loginFrame;
 import java.io.IOException;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -67,18 +69,23 @@ public class waitServer extends javax.swing.JDialog {
                     }
                 }
             }else{
-                System.err.println(command);
-                System.err.println(data);
                 clientSocket.sendRequest(command, data);
+                loginFrame.jButton1.doClick();
+                int waitSrv = 0;
                 switch (command){
-                    case "addUser":                        
+                    case "newUser":                        
                         command = "";
                         data = "";
                         flag = true;
-                        //String message = clientSocket.getMessage();
+                        while(messageCrypt.length() == 0){
+                            waitSrv++;
+                            System.out.println("Ожидание сервера: " + waitSrv);
+                        }
+                        String message = clientSocket.messageCrypt;
+                        clientSocket.messageCrypt = "";
                         step++;
                         progressWait.setValue(step);
-                        //JOptionPane.showMessageDialog(waitServer, message);
+                        JOptionPane.showMessageDialog(waitServer, message);
                         i++;
                       break;
                     case "getUsers":
