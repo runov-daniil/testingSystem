@@ -308,13 +308,12 @@ public class adminForm extends javax.swing.JFrame {
 
     private void addUserBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBTNActionPerformed
         addNewUser.main();
-        addUserBTN.setEnabled(false);
     }//GEN-LAST:event_addUserBTNActionPerformed
 
     public static void main(boolean visible) {
         adminForm.setResizable(false);
         adminForm.setVisible(visible);
-        System.out.println(MyIP);
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
