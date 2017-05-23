@@ -36,4 +36,17 @@ public class dataBase {
         closeConnection();
     }
     //Формирование списка пользователей
+    public static String getUsers() throws ClassNotFoundException, SQLException {
+        getConnection();
+        String Users = "";
+        rs = st.executeQuery("SELECT * FROM users;");
+        while(rs.next()) {
+            Users = Users + rs.getString("login") + "|";
+            Users = Users + rs.getString("FIO") + "|";
+            Users = Users + rs.getString("level") + "$";
+        }        
+        System.out.println(Users);
+        closeConnection();
+        return Users;
+    }
 }

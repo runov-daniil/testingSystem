@@ -1,11 +1,15 @@
 package client.admin;
 
 import client.clientSocket;
+import static client.clientSocket.messageCrypt;
+import client.loginFrame;
 import client.publicClasses.waitServer;
 import java.awt.PopupMenu;
 import java.io.IOException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class adminForm extends javax.swing.JFrame {
     private static adminForm adminForm = new adminForm();
@@ -36,7 +40,7 @@ public class adminForm extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        usersTable = new javax.swing.JTable();
         deleteUserBTN = new javax.swing.JButton();
         addUserBTN = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
@@ -187,7 +191,7 @@ public class adminForm extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        usersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -195,8 +199,8 @@ public class adminForm extends javax.swing.JFrame {
 
             }
         ));
-        jTable3.setToolTipText("");
-        jScrollPane4.setViewportView(jTable3);
+        usersTable.setToolTipText("");
+        jScrollPane4.setViewportView(usersTable);
 
         deleteUserBTN.setText("Удалить");
 
@@ -286,7 +290,7 @@ public class adminForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, Short.MAX_VALUE)))
         );
 
         pack();
@@ -308,12 +312,69 @@ public class adminForm extends javax.swing.JFrame {
 
     private void addUserBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBTNActionPerformed
         addNewUser.main();
+        addUserBTN.setEnabled(false);
     }//GEN-LAST:event_addUserBTNActionPerformed
 
     public static void main(boolean visible) {
         adminForm.setResizable(false);
         adminForm.setVisible(visible);
+    }
+    
+    public static void setUsersTable(String Users){
+        System.out.println(Users);
+        DefaultTableModel dtm = (DefaultTableModel)adminForm.usersTable.getModel();
+        Vector data = new Vector();
+        Vector header = new Vector();
+        header.add("Логин");
+        header.add("ФИО");
+        header.add("Роль"); 
+        dtm.setDataVector(data, header);
         
+        int lengthStr = Users.length();
+        int position = 0;
+        String login = "";
+        String FIO = "";
+        String level = "";
+        for(int i = 0; i < lengthStr; i++) {
+            char ch = Users.charAt(i);
+            if(position == 0){
+                if(ch != '|'){
+                    login = login + ch;
+                }else{
+                    position = 1;
+                }
+            }else if(position == 1){
+                if(ch != '|'){
+                    FIO = FIO +ch;
+                }else{
+                    position = 2;
+                }
+            }else if(position == 2){
+                if(ch != '$'){
+                    level = level + ch;
+                }else{
+                    position = 0;
+                    String[] newRow = {login, FIO, level};
+                    dtm.addRow(newRow);
+                    login = "";
+                    FIO = "";
+                    level = "";
+                }
+            }
+        }
+    }
+    
+    public static void firstStart(){
+        loginFrame.jButton1.doClick();
+        try {clientSocket.sendRequest("getUsers", "admin");} catch (IOException ex) {}
+        int waitSrv = 0;
+        while(messageCrypt.length() == 0){
+            waitSrv++;
+            System.out.println("Ожидание сервера: " + waitSrv);
+        }
+        String Users = clientSocket.messageCrypt;
+        clientSocket.messageCrypt = "";
+        setUsersTable(Users);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -335,11 +396,11 @@ public class adminForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextArea logChat;
     public static javax.swing.JLabel loginLabel;
     private javax.swing.JTextField messageText;
     private javax.swing.JButton sendBTN;
     private javax.swing.JButton testsBtn;
+    public static javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
 }

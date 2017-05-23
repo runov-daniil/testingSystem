@@ -1,5 +1,6 @@
 package client;
 
+import client.admin.adminForm;
 import java.io.IOException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -106,8 +107,9 @@ public class loginFrame extends javax.swing.JFrame {
         if(flag == true){
             this.setVisible(false);
             clientSocket.listenServer();
-            try {clientSocket.sendRequest("authorization", login.getText() + "|" + Password.getText());} catch (IOException ex) {}
-            flag = false;
+            try {clientSocket.sendRequest("authorization", login.getText() + "|" + Password.getText());} catch (IOException ex) {}            
+            flag = false; 
+            adminForm.firstStart();
         }else{
             clientSocket.listenServer();
         }

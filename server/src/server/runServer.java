@@ -194,6 +194,12 @@ public class runServer extends javax.swing.JFrame {
                 send("Данные успешно приняты!");
             break;                
             //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Запрос пользователей базы">
+            case "getUsers":
+                String Users = dataBase.getUsers();
+                send(Users);
+                break;
+            //</editor-fold>
         }
     }
     

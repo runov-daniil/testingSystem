@@ -1,5 +1,6 @@
 package client.publicClasses;
 
+import client.admin.adminForm;
 import client.clientSocket;
 import static client.clientSocket.messageCrypt;
 import client.loginFrame;
@@ -42,6 +43,10 @@ public class waitServer extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void closeFrame(){
+        dispose();
+    }
+    
     public static void main(String request, int count) throws IOException{
         waitServer.setSize(435, 100);
         waitServer.setVisible(true);
@@ -68,9 +73,9 @@ public class waitServer extends javax.swing.JDialog {
                         i++;
                     }
                 }
-            }else{
-                clientSocket.sendRequest(command, data);
+            }else{ 
                 loginFrame.jButton1.doClick();
+                clientSocket.sendRequest(command, data);
                 int waitSrv = 0;
                 switch (command){
                     case "newUser":                        
@@ -82,27 +87,34 @@ public class waitServer extends javax.swing.JDialog {
                             System.out.println("Ожидание сервера: " + waitSrv);
                         }
                         String message = clientSocket.messageCrypt;
+                        System.out.println(message);
                         clientSocket.messageCrypt = "";
                         step++;
                         progressWait.setValue(step);
-                        JOptionPane.showMessageDialog(waitServer, message);
                         i++;
                       break;
                     case "getUsers":
                         command = "";
                         data = "";
                         flag = true;
+                        while(messageCrypt.length() == 0){
+                            waitSrv++;
+                            System.out.println("Ожидание сервера: " + waitSrv);
+                        }
+                        String Users = clientSocket.messageCrypt;
+                        clientSocket.messageCrypt = "";
+                        adminForm.setUsersTable(Users);
+                        loginFrame.jButton1.doClick();
                         step++;
                         progressWait.setValue(step);
                         i++;
                       break;                    
                 }
-                
-                
-                
             }
         }
+        waitServer.closeFrame();
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JProgressBar progressWait;

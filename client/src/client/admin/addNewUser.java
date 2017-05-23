@@ -145,16 +145,28 @@ public class addNewUser extends javax.swing.JDialog {
                         Request = Request + "|teacher";
                         Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+"@";
                         try {waitServer.main(Request, 2);} catch (IOException ex) {}
+                        addNewUser.closeFrame();
                     }else if(jRadioButton2.isSelected() == true){
                         Request = Request + "|student";
                         Request = Request + "@getUsers$"+adminForm.loginLabel.getText()+"$"+"@";
                         try {waitServer.main(Request, 2);} catch (IOException ex) {}
+                        addNewUser.closeFrame();
                     }
                 }
             }
         }
     }//GEN-LAST:event_saveBTNActionPerformed
 
+    public void closeFrame(){
+        loginText.setText("");
+        passwordText.setText("");
+        fioText.setText("");
+        jRadioButton1.setSelected(false);
+        jRadioButton2.setSelected(false);
+        adminForm.addUserBTN.setEnabled(true);
+        dispose();
+    }
+    
     private void jRadioButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton1MouseClicked
         jRadioButton2.setSelected(false);
     }//GEN-LAST:event_jRadioButton1MouseClicked
