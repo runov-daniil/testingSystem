@@ -206,10 +206,21 @@ public class runServer extends javax.swing.JFrame {
                 send("Запрос на удаление принят!");
                 break;
             //</editor-fold>
-            //<editor-fold defaultstate="collapsed" desc="Удаление пользователя">
+            //<editor-fold defaultstate="collapsed" desc="Запрос предметов базы">
             case "getPredmets":
                 String predmets = dataBase.getPredmets();
                 send(predmets);
+                break;
+            //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Добавление нового предмета">,
+            case "newPredmet":
+                boolean check = dataBase.checkPredmet(serverPanel.getRequests.getValueAt(countRow-1, 1).toString());
+                if(check == false){
+                    dataBase.newPredmet(serverPanel.getRequests.getValueAt(countRow-1, 1).toString());
+                    send("true");
+                }else{
+                    send("false");
+                }
                 break;
             //</editor-fold>    
         }

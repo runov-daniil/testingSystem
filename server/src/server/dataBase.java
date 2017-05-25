@@ -66,4 +66,26 @@ public class dataBase {
         closeConnection();
         return predmets;
     }
+    //Добавление нового предмета
+    public static void newPredmet(String predmet) throws ClassNotFoundException, SQLException {
+        getConnection();
+        st.execute("INSERT INTO predmets(namePredmet) VALUES ('"+predmet+"');");
+        closeConnection();
+    }
+    
+    //Проверки
+    //Проверка на существование предмета
+    public static boolean checkPredmet(String predmet) throws ClassNotFoundException, SQLException {
+        getConnection();
+        boolean check = false;
+        rs = st.executeQuery("SELECT * FROM predmets");
+        while(rs.next()) {
+            String getPredmet = rs.getString("namePredmet");
+            if(getPredmet.equals(predmet)){
+                check = true;
+            }
+        }
+        closeConnection();
+        return check;        
+    }
 }
