@@ -381,6 +381,7 @@ public class adminForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         addNewPredmet.main();
+        jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(boolean visible) {
@@ -487,7 +488,7 @@ public class adminForm extends javax.swing.JFrame {
     private javax.swing.JButton deleteQuestionBTN;
     private javax.swing.JButton deleteUserBTN;
     private javax.swing.JButton editQuestionBTN;
-    private javax.swing.JButton jButton1;
+    public static javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;

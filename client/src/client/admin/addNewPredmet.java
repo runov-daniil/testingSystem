@@ -1,5 +1,11 @@
 package client.admin;
 
+import client.publicClasses.waitServer;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class addNewPredmet extends javax.swing.JFrame {
 public static addNewPredmet addNewPredmet = new addNewPredmet();
     public addNewPredmet() {
@@ -19,6 +25,11 @@ public static addNewPredmet addNewPredmet = new addNewPredmet();
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton1.setText("Сохранить");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Название предмета:");
 
@@ -69,10 +80,27 @@ public static addNewPredmet addNewPredmet = new addNewPredmet();
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(jTextField1.getText().equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Введите название предмта");
+        }else{
+            String request = "newPredmet$"+jTextField1.getText();
+            request = request + "@getPredmets$admin@";
+            try {waitServer.main(request, 2);} catch (IOException ex) {}
+            closeFrame();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public static void main() {
         addNewPredmet.setResizable(false);
         addNewPredmet.setVisible(true);
+    }
+    
+    public void closeFrame(){
+        jTextField1.setText("");
+        adminForm.jButton1.setEnabled(true);
+        dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

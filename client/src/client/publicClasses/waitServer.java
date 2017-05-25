@@ -1,5 +1,6 @@
 package client.publicClasses;
 
+import client.admin.addNewPredmet;
 import client.admin.adminForm;
 import client.clientSocket;
 import static client.clientSocket.messageCrypt;
@@ -124,6 +125,44 @@ public class waitServer extends javax.swing.JDialog {
                         }
                         String getMsg = clientSocket.messageCrypt;
                         clientSocket.messageCrypt = "";
+                        step++;
+                        progressWait.setValue(step);
+                        i++;
+                        break;
+                    //</editor-fold>
+                    //<editor-fold defaultstate="collapsed" desc="Добавление предмета">.
+                    case "newPredmet":
+                        command = "";
+                        data = "";
+                        flag = true;
+                        loginFrame.jButton1.doClick();
+                        while(messageCrypt.length() == 0){
+                            waitSrv++;
+                            System.out.println("Ожидание сервера: " + waitSrv);
+                        }
+                        getMsg = clientSocket.messageCrypt;
+                        clientSocket.messageCrypt = "";
+                        if(getMsg.equals("false")){
+                            JOptionPane.showMessageDialog(waitServer, "Ошибка! Такой предмет уже существует");
+                        }
+                        step++;
+                        progressWait.setValue(step);
+                        i++;
+                        break;
+                    //</editor-fold>
+                    //<editor-fold defaultstate="collapsed" desc="Запрос предметов">.
+                    case "getPredmets":
+                        command = "";
+                        data = "";
+                        flag = true;
+                        loginFrame.jButton1.doClick();
+                        while(messageCrypt.length() == 0){
+                            waitSrv++;
+                            System.out.println("Ожидание сервера: " + waitSrv);
+                        }
+                        getMsg = clientSocket.messageCrypt;
+                        clientSocket.messageCrypt = "";
+                        adminForm.setPredmetTable(getMsg);
                         step++;
                         progressWait.setValue(step);
                         i++;
