@@ -261,6 +261,11 @@ public class adminForm extends javax.swing.JFrame {
         jScrollPane3.setViewportView(predmetsTable);
 
         jButton1.setText("Добавить");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Удалить");
 
@@ -373,6 +378,10 @@ public class adminForm extends javax.swing.JFrame {
             try {waitServer.main(dataToSend, 2);} catch (IOException ex) {}
         }
     }//GEN-LAST:event_deleteUserBTNActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        addNewPredmet.main();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(boolean visible) {
         adminForm.setResizable(false);
