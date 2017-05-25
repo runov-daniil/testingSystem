@@ -78,6 +78,7 @@ public class waitServer extends javax.swing.JDialog {
                 clientSocket.sendRequest(command, data);
                 int waitSrv = 0;
                 switch (command){
+                    //<editor-fold defaultstate="collapsed" desc="Добавление нового пользователя">
                     case "newUser":                        
                         command = "";
                         data = "";
@@ -87,34 +88,52 @@ public class waitServer extends javax.swing.JDialog {
                             System.out.println("Ожидание сервера: " + waitSrv);
                         }
                         String message = clientSocket.messageCrypt;
-                        System.out.println(message);
                         clientSocket.messageCrypt = "";
                         step++;
                         progressWait.setValue(step);
                         i++;
                       break;
+                    //</editor-fold>
+                    //<editor-fold defaultstate="collapsed" desc="Запрос пользователей">
                     case "getUsers":
                         command = "";
                         data = "";
                         flag = true;
+                        loginFrame.jButton1.doClick();
                         while(messageCrypt.length() == 0){
                             waitSrv++;
                             System.out.println("Ожидание сервера: " + waitSrv);
                         }
                         String Users = clientSocket.messageCrypt;
-                        clientSocket.messageCrypt = "";
+                        clientSocket.messageCrypt = "";                        
                         adminForm.setUsersTable(Users);
-                        loginFrame.jButton1.doClick();
                         step++;
                         progressWait.setValue(step);
                         i++;
-                      break;                    
+                      break;
+                    //</editor-fold>
+                    //<editor-fold defaultstate="collapsed" desc="Удаление пользователя">
+                    case "deleteUser":
+                        command = "";
+                        data = "";
+                        flag = true;
+                        loginFrame.jButton1.doClick();
+                        while(messageCrypt.length() == 0){
+                            waitSrv++;
+                            System.out.println("Ожидание сервера: " + waitSrv);
+                        }
+                        String getMsg = clientSocket.messageCrypt;
+                        clientSocket.messageCrypt = "";
+                        step++;
+                        progressWait.setValue(step);
+                        i++;
+                        break;
+                    //</editor-fold>
                 }
             }
         }
         waitServer.closeFrame();
-    }
-    
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JProgressBar progressWait;

@@ -203,6 +203,11 @@ public class adminForm extends javax.swing.JFrame {
         jScrollPane4.setViewportView(usersTable);
 
         deleteUserBTN.setText("Удалить");
+        deleteUserBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserBTNActionPerformed(evt);
+            }
+        });
 
         addUserBTN.setText("Добавить");
         addUserBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -314,6 +319,20 @@ public class adminForm extends javax.swing.JFrame {
         addNewUser.main();
         addUserBTN.setEnabled(false);
     }//GEN-LAST:event_addUserBTNActionPerformed
+
+    private void deleteUserBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBTNActionPerformed
+        int count = usersTable.getSelectedRowCount();
+        int[] first = usersTable.getSelectedRows();
+        String toDelete[] = new String[count];
+        for(int i = 0; i < count; i++){
+            toDelete[i] = usersTable.getValueAt(first[i], 0).toString();
+        }
+        for(int i = 0; i < count; i++){
+            String dataToSend = "deleteUser$" + toDelete[i];
+            dataToSend = dataToSend + "@getUsers$"+adminForm.loginLabel.getText()+"@"; 
+            try {waitServer.main(dataToSend, 2);} catch (IOException ex) {}
+        }
+    }//GEN-LAST:event_deleteUserBTNActionPerformed
 
     public static void main(boolean visible) {
         adminForm.setResizable(false);
