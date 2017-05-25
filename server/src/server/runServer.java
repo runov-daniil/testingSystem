@@ -200,6 +200,12 @@ public class runServer extends javax.swing.JFrame {
                 send(Users);
                 break;
             //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Удаление пользователя">
+            case "deleteUser":
+                dataBase.deleteUser(serverPanel.getRequests.getValueAt(countRow - 1, 1).toString());
+                send("Запрос на удаление принят!");
+                break;
+            //</editor-fold>
         }
     }
     

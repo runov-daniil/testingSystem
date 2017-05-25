@@ -49,4 +49,10 @@ public class dataBase {
         closeConnection();
         return Users;
     }
+    //Удаление пользователя
+    public static void deleteUser(String login) throws ClassNotFoundException, SQLException {
+        getConnection();
+        st.execute("DELETE FROM users WHERE login = '"+login+"';");
+        closeConnection();
+    }
 }
