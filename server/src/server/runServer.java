@@ -212,7 +212,7 @@ public class runServer extends javax.swing.JFrame {
                 send(predmets);
                 break;
             //</editor-fold>
-            //<editor-fold defaultstate="collapsed" desc="Добавление нового предмета">,
+            //<editor-fold defaultstate="collapsed" desc="Добавление нового предмета">
             case "newPredmet":
                 boolean check = dataBase.checkPredmet(serverPanel.getRequests.getValueAt(countRow-1, 1).toString());
                 if(check == false){
@@ -223,6 +223,17 @@ public class runServer extends javax.swing.JFrame {
                 }
                 break;
             //</editor-fold>    
+            //<editor-fold defaultstate="collapsed" desc="Удаление предмета">
+            case "deletePredmet":
+                int count = dataBase.checkCountQuestionPredmet(serverPanel.getRequests.getValueAt(countRow - 1, 1).toString());
+                if(count == 0){
+                    dataBase.deletePredmet(serverPanel.getRequests.getValueAt(countRow - 1, 1).toString());
+                    send("true");
+                }else{
+                    send("По данному предмету в базе существуют вопросы! Удаление предмета отклонено сервером!");
+                }
+                break;
+            //</editor-fold>  
         }
     }
     

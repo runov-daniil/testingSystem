@@ -72,6 +72,12 @@ public class dataBase {
         st.execute("INSERT INTO predmets(namePredmet) VALUES ('"+predmet+"');");
         closeConnection();
     }
+    //Удаление предмета
+    public static void deletePredmet(String predmet) throws ClassNotFoundException, SQLException {
+        getConnection();
+        st.execute("DELETE FROM predmets WHERE namePredmet = '"+predmet+"';");
+        closeConnection();
+    }
     
     //Проверки
     //Проверка на существование предмета
@@ -87,5 +93,19 @@ public class dataBase {
         }
         closeConnection();
         return check;        
+    }
+    //Проверка количества вопросов по предмету
+    public static int checkCountQuestionPredmet(String predmet) throws ClassNotFoundException, SQLException {
+        getConnection();
+        int count = 0;
+        rs = st.executeQuery("SELECT * FROM questions;");
+        while(rs.next()) {
+            String getPr = rs.getString("namePredmet");
+            if(getPr.equals(predmet)){
+                count++;
+            }
+        }
+        closeConnection();
+        return count;
     }
 }
