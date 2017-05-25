@@ -44,6 +44,11 @@ public class adminForm extends javax.swing.JFrame {
         deleteUserBTN = new javax.swing.JButton();
         addUserBTN = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        predmetsTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -245,15 +250,50 @@ public class adminForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Пользователи", jPanel5);
 
+        predmetsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(predmetsTable);
+
+        jButton1.setText("Добавить");
+
+        jButton2.setText("Удалить");
+
+        jButton3.setText("Редактировать");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Предметы", jPanel6);
@@ -340,7 +380,6 @@ public class adminForm extends javax.swing.JFrame {
     }
     
     public static void setUsersTable(String Users){
-        System.out.println(Users);
         DefaultTableModel dtm = (DefaultTableModel)adminForm.usersTable.getModel();
         Vector data = new Vector();
         Vector header = new Vector();
@@ -383,7 +422,29 @@ public class adminForm extends javax.swing.JFrame {
         }
     }
     
+    public static void setPredmetTable(String predmets){
+        DefaultTableModel dtm = (DefaultTableModel)predmetsTable.getModel();
+        Vector data = new Vector();
+        Vector header = new Vector();
+        header.add("Название");
+        dtm.setDataVector(data, header);
+        
+        int length = predmets.length();
+        String predmet = "";
+        for(int i = 0; i < length; i++){
+            char ch = predmets.charAt(i);
+            if(ch != '$'){
+                predmet = predmet + ch;
+            }else{
+                String[] newRow = {predmet};
+                dtm.addRow(newRow);
+                predmet = "";
+            }
+        }
+    }
+    
     public static void firstStart(){
+        //<editor-fold defaultstate="collapsed" desc="Установка таблицы пользователи">
         loginFrame.jButton1.doClick();
         try {clientSocket.sendRequest("getUsers", "admin");} catch (IOException ex) {}
         int waitSrv = 0;
@@ -394,6 +455,19 @@ public class adminForm extends javax.swing.JFrame {
         String Users = clientSocket.messageCrypt;
         clientSocket.messageCrypt = "";
         setUsersTable(Users);
+        //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Установка таблицы предметы">
+        loginFrame.jButton1.doClick();
+        try {clientSocket.sendRequest("getPredmets", "admin");} catch (IOException ex) {}
+        waitSrv = 0;
+        while(messageCrypt.length() == 0){
+            waitSrv++;
+            System.out.println("Ожидание сервера: " + waitSrv);
+        }
+        String predmets = clientSocket.messageCrypt;
+        clientSocket.messageCrypt = "";
+        setPredmetTable(predmets);
+        //</editor-fold>        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -404,6 +478,9 @@ public class adminForm extends javax.swing.JFrame {
     private javax.swing.JButton deleteQuestionBTN;
     private javax.swing.JButton deleteUserBTN;
     private javax.swing.JButton editQuestionBTN;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -412,12 +489,14 @@ public class adminForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea logChat;
     public static javax.swing.JLabel loginLabel;
     private javax.swing.JTextField messageText;
+    public static javax.swing.JTable predmetsTable;
     private javax.swing.JButton sendBTN;
     private javax.swing.JButton testsBtn;
     public static javax.swing.JTable usersTable;
