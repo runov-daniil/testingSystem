@@ -78,6 +78,20 @@ public class dataBase {
         st.execute("DELETE FROM predmets WHERE namePredmet = '"+predmet+"';");
         closeConnection();
     }
+    //Список учителей базы
+    public static String teachers() throws ClassNotFoundException, SQLException {
+        getConnection();
+        String teachers = "";
+        rs = st.executeQuery("SELECT * FROM users;");
+        while(rs.next()){
+            String level = rs.getString("level");
+            if(level.equals("teacher")){
+                String login = rs.getString("login");
+            }
+        }
+        closeConnection();
+        return teachers;
+    }
     
     //Проверки
     //Проверка на существование предмета
