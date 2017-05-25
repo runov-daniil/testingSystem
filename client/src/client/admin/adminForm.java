@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class adminForm extends javax.swing.JFrame {
@@ -268,6 +269,11 @@ public class adminForm extends javax.swing.JFrame {
         });
 
         jButton2.setText("Удалить");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Редактировать");
 
@@ -383,6 +389,16 @@ public class adminForm extends javax.swing.JFrame {
         addNewPredmet.main();
         jButton1.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(!(predmetsTable.getValueAt(predmetsTable.getSelectedRow(), 0).toString().equals("temp"))){
+            String request = "deletePredmet$"+predmetsTable.getValueAt(predmetsTable.getSelectedRow(), 0);
+            request = request + "@getPredmets$admin@";
+            try {waitServer.main(request, 2);} catch (IOException ex) {}
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Данный предмет удалить нельзя!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(boolean visible) {
         adminForm.setResizable(false);

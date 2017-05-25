@@ -168,6 +168,26 @@ public class waitServer extends javax.swing.JDialog {
                         i++;
                         break;
                     //</editor-fold>
+                    //<editor-fold defaultstate="collapsed" desc="Удаление предмета">.
+                    case "deletePredmet":
+                        command = "";
+                        data = "";
+                        flag = true;
+                        loginFrame.jButton1.doClick();
+                        while(messageCrypt.length() == 0){
+                            waitSrv++;
+                            System.out.println("Ожидание сервера: " + waitSrv);
+                        }
+                        getMsg = clientSocket.messageCrypt;
+                        clientSocket.messageCrypt = "";
+                        if(!(getMsg.equals("true"))){
+                            JOptionPane.showMessageDialog(waitServer, getMsg);
+                        }
+                        step++;
+                        progressWait.setValue(step);
+                        i++;
+                        break;
+                    //</editor-fold>    
                 }
             }
         }
