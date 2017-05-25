@@ -55,4 +55,15 @@ public class dataBase {
         st.execute("DELETE FROM users WHERE login = '"+login+"';");
         closeConnection();
     }
+    //Запрос предметов
+    public static String getPredmets() throws ClassNotFoundException, SQLException {
+        getConnection();
+        String predmets = "";
+        rs = st.executeQuery("SELECT * FROM predmets");
+        while(rs.next()) {
+            predmets = predmets + rs.getString("namePredmet") + "$";
+        }
+        closeConnection();
+        return predmets;
+    }
 }

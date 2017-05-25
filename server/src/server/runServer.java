@@ -206,6 +206,12 @@ public class runServer extends javax.swing.JFrame {
                 send("Запрос на удаление принят!");
                 break;
             //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Удаление пользователя">
+            case "getPredmets":
+                String predmets = dataBase.getPredmets();
+                send(predmets);
+                break;
+            //</editor-fold>    
         }
     }
     
